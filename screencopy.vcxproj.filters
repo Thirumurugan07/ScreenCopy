@@ -32,5 +32,8 @@
     <ClInclude Include="compat.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="util\net.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
