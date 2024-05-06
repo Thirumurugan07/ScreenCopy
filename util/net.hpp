@@ -9,28 +9,27 @@
 #include <BaseTsd.h>
 typedef SSIZE_T ssize_t;
 
-typedef SOCKET sc_raw_socket;
-#define SC_RAW_SOCKET_NONE INVALID_SOCKET
+class ScSocket {
+private:
+    SOCKET socket_;
+    bool closed_;
 
-typedef struct sc_socket_windows {
-    SOCKET socket;
-    bool closed;
-} sc_socket_windows;
+public:
+    ScSocket();
+    ~ScSocket();
+    bool init();
+    void cleanup();
+    bool create();
+    bool connect(uint32_t addr, uint16_t port);
+    bool listen(uint32_t addr, uint16_t port, int backlog);
+    ScSocket accept();
+    ssize_t recv(void* buf, std::size_t len);
+    ssize_t recv_all(void* buf, std::size_t len);
+    /*ssize_t send(const void* buf, std::size_t len);
+    ssize_t send_all(const void* buf, std::size_t len);*/
+    //bool interrupt();
+    bool close();
 
-typedef sc_socket_windows* sc_socket;
-
-#define SC_SOCKET_NONE nullptr
-
-bool net_init();
-void net_cleanup();
-sc_socket net_socket();
-bool net_connect(sc_socket socket, uint32_t addr, uint16_t port);
-bool net_listen(sc_socket server_socket, uint32_t addr, uint16_t port, int backlog);
-sc_socket net_accept(sc_socket server_socket);
-ssize_t net_recv(sc_socket socket, void* buf, std::size_t len);
-ssize_t net_recv_all(sc_socket socket, void* buf, std::size_t len);
-ssize_t net_send(sc_socket socket, const void* buf, std::size_t len);
-ssize_t net_send_all(sc_socket socket, const void* buf, std::size_t len);
-bool net_interrupt(sc_socket socket);
-bool net_close(sc_socket socket);
-bool net_parse_ipv4(const char* s, uint32_t* ipv4);
+    // Public function to get the socket variable
+    SOCKET getSocket() const { return socket_; }
+};
