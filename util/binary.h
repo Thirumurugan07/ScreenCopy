@@ -1,7 +1,7 @@
 #ifndef SC_BINARY_H
 #define SC_BINARY_H
 
-#include "common.h"
+
 
 #include <cassert>
 #include <cstdint>
