@@ -3,5 +3,6 @@
 using namespace std;
 
 int main() {
-	cout << "Hello, WOrld";
+	system("start cmd /c C:\\Users\\HIZ1COB\\Developer\\scrcpy\\vlc.bat");
+	return 0;
 }
