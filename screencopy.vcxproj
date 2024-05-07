@@ -139,13 +139,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="tcp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.hpp" />
     <ClInclude Include="compat.hpp" />
     <ClInclude Include="config.hpp" />
+    <ClInclude Include="events.h" />
+    <ClInclude Include="log.h" />
+    <ClInclude Include="options.h" />
+    <ClInclude Include="packet_merger.h" />
+    <ClInclude Include="thread.h" />
     <ClInclude Include="util\binary.h" />
     <ClInclude Include="util\net.hpp" />
+    <ClInclude Include="util\options.h" />
+    <ClInclude Include="util\ticks.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
