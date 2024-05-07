@@ -29,7 +29,7 @@ public:
     ssize_t send_all(const void* buf, std::size_t len);*/
     //bool interrupt();
     bool close();
-
+    bool net_parse_ipv4(const char* s, uint32_t* ipv4);
     // Public function to get the socket variable
     SOCKET getSocket() const { return socket_; }
 };

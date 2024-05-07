@@ -2,11 +2,11 @@
 #ifndef SC_LOG_H
 #define SC_LOG_H
 
-#include "common.hpp"
+#include "../common.hpp"
 
 #include <SDL_log.h>
 
-#include "options.h"
+#include "../options.h"
 
 #define LOG_STR_IMPL_(x) # x
 #define LOG_STR(x) LOG_STR_IMPL_(x)
