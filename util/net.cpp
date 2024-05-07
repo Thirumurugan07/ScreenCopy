@@ -3,7 +3,7 @@
 #include "log.h"
 #pragma comment(lib, "Ws2_32.lib")
 
-ScSocket::ScSocket() : socket_(INVALID_SOCKET), closed_(false) {}
+ScSocket::ScSocket() : socket_(INVALID_SOCKET) {}
 
 ScSocket::~ScSocket() { close(); }
 

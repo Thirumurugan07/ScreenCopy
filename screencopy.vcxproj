@@ -138,10 +138,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="comm.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="util\net.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="comm.hpp" />
     <ClInclude Include="common.hpp" />
     <ClInclude Include="compat.hpp" />
     <ClInclude Include="config.hpp" />
