@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\HIZ1COB\scoop\apps\vcpkg\current\installed\x64-windows\include;C:\Users\HIZ1COB\Developer\vs-project\screencopy\additional-libraries\SDL2-2.30.1\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\HIZ1COB\scoop\apps\vcpkg\current\installed\x64-windows\include;C:\Users\HIZ1COB\Developer\vs-project\screencopy\additional-libraries\SDL2-2.30.1\include;$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnableManifest>false</VcpkgEnableManifest>
@@ -141,6 +141,7 @@
     <ClCompile Include="comm.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="util\net.cpp" />
+    <ClCompile Include="util\thread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="comm.hpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="util\binary.h" />
     <ClInclude Include="util\log.h" />
     <ClInclude Include="util\net.hpp" />
+    <ClInclude Include="util\thread.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
