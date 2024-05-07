@@ -3,6 +3,7 @@
 #include "util/net.hpp"
 #include "util/thread.h"
 #include "comm.hpp"
+#include "packet_merger.hpp"
 using namespace std;
 
 
