@@ -141,6 +141,7 @@
     <ClCompile Include="comm.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="packet_merger.cpp" />
+    <ClCompile Include="trait\packet_source.cpp" />
     <ClCompile Include="util\net.cpp" />
     <ClCompile Include="util\thread.cpp" />
   </ItemGroup>
@@ -151,6 +152,8 @@
     <ClInclude Include="config.hpp" />
     <ClInclude Include="options.h" />
     <ClInclude Include="packet_merger.hpp" />
+    <ClInclude Include="trait\packet_sink.h" />
+    <ClInclude Include="trait\packet_source.h" />
     <ClInclude Include="util\binary.h" />
     <ClInclude Include="util\log.h" />
     <ClInclude Include="util\net.hpp" />
