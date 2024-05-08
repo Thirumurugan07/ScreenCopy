@@ -2,7 +2,7 @@
 #define THREAD_H
 
 #include <stdbool.h>
-#include <SDL2/SDL_thread.h>
+#include <SDL_thread.h>
 #include "log.h"
 
 /* Forward declarations */

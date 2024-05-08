@@ -71,13 +71,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\HIZ1COB\scoop\apps\vcpkg\current\installed\x64-windows\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\HIZ1COB\scoop\apps\vcpkg\current\installed\x64-windows\include;C:\Raghuram\Project\ScreenSharing\ScreenCopy\additional-libraries;C:\Raghuram\Project\ScreenSharing\ScreenCopy\SDL2\include;C:\Raghuram\Project\ScreenSharing\ScreenCopy\SDL2\lib\x64;$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnableManifest>false</VcpkgEnableManifest>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <VcpkgUseStatic>true</VcpkgUseStatic>
+    <VcpkgInstalledDir>..\..\..\..\..\vcpkg</VcpkgInstalledDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -113,12 +114,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\HIZ1COB\scoop\apps\vcpkg\current\installed\x64-windows\lib;C:\Raghuram\Project\ScreenSharing\ScreenCopy\SDL2-2.30.1\lib\x64;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\HIZ1COB\scoop\apps\vcpkg\current\installed\x64-windows\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\HIZ1COB\scoop\apps\vcpkg\current\installed\x64-windows\lib;C:\Raghuram\Project\ScreenSharing\ScreenCopy\SDL2-2.30.1\lib\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Ws2_32.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,20 +141,29 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="packet_source.cpp" />
+    <ClCompile Include="streamer.cpp" />
     <ClCompile Include="tcp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.hpp" />
     <ClInclude Include="compat.hpp" />
     <ClInclude Include="config.hpp" />
+    <ClInclude Include="decoder.h" />
+    <ClInclude Include="demuxer.h" />
     <ClInclude Include="events.h" />
     <ClInclude Include="log.h" />
     <ClInclude Include="options.h" />
     <ClInclude Include="packet_merger.h" />
+    <ClInclude Include="packet_sink.h" />
+    <ClInclude Include="packet_source.h" />
+    <ClInclude Include="streamer.h" />
     <ClInclude Include="thread.h" />
+    <ClInclude Include="trait\frame_sink.h" />
+    <ClInclude Include="trait\frame_source.h" />
     <ClInclude Include="util\binary.h" />
+    <ClInclude Include="util\net.h" />
     <ClInclude Include="util\net.hpp" />
-    <ClInclude Include="util\options.h" />
     <ClInclude Include="util\ticks.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
