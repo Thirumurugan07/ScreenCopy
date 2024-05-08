@@ -1,5 +1,5 @@
 #include "packet_source.h"
-#include <cassert> // Include the assert.h header for assertion macros
+#include <cassert> 
 #include <cstdint>// Include the stdint.h header for integer types
 
 void sc_packet_source_init(struct sc_packet_source* source) {

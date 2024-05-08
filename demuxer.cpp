@@ -1,6 +1,4 @@
 #include "demuxer.hpp"
-#include "util/net.hpp"
-
 ScDemuxer::ScDemuxer() : name(nullptr), socket(ScSocket()), thread(sc_thread()) {
     // Initialize any other member variables if needed
 }
@@ -248,7 +246,7 @@ int ScDemuxer::run(void* data) {
                 }
             }
 
-            ok = sc_packet_source_sinks_push(&demuxer->packet_source, packet);
+           // ok = sc_packet_source_sinks_push(&demuxer->packet_source, packet);
             av_packet_unref(packet);
             if (!ok) {
                 // The sink already logged its concrete error
@@ -264,7 +262,7 @@ int ScDemuxer::run(void* data) {
 
         av_packet_free(&packet);
     finally_close_sinks:
-        sc_packet_source_sinks_close(&demuxer->packet_source);
+       // sc_packet_source_sinks_close(&demuxer->packet_source);
     finally_free_context:
         // This also calls avcodec_close() internally
         avcodec_free_context(&codec_ctx);
@@ -275,7 +273,7 @@ int ScDemuxer::run(void* data) {
 }
 
 void ScDemuxer::init(const char* name, ScSocket socket) {
-   // assert(socket != INVALID_SOCKET);
+    // assert(socket != SC_SOCKET_NONE);
 
     this->name = name;
     this->socket = socket;

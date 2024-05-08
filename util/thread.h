@@ -2,7 +2,7 @@
 #define THREAD_H
 
 #include <iostream>
-#include <SDL2/SDL_thread.h> 
+#include <SDL_thread.h> 
 #include "log.h"
 
 /* Typedef for thread function */

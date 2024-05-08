@@ -1,23 +1,29 @@
 #ifndef ScDemuxer_HPP
 #define ScDemuxer_HPP
 
-#include "common.hpp"
-#include "trait/packet_source.h"
-#include "util/net.hpp"
-#include "util/thread.h"
+#include <cstdbool>
+#include <cstdint>
 #include <cassert>
-#include <windows.h>
-#include "events.h"
+#include "util/net.hpp"
+#include "common.hpp"
 #include "packet_merger.hpp"
-#include "util/binary.h"
-#include "util/log.h"
+
+#include "trait/packet_source.h"
+#include "trait/packet_sink.h"
+#include "util/thread.h"
+#include <windows.h> 
 
 extern "C" {
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
 #include <libavutil/channel_layout.h>
 #include <libavutil/time.h>
+#include "events.h"
+#include "util/binary.h"
+#include "util/log.h"
+
 }
+
 
 
 #define SC_PACKET_HEADER_SIZE 12
