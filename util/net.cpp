@@ -102,3 +102,33 @@ bool ScSocket::net_parse_ipv4(const char* s, uint32_t* ipv4) {
     *ipv4 = ntohl(addr.s_addr);
     return true;
 }
+bool ScSocket::start(const char* address, int port) {
+    if (!init()) {
+        std::cerr << "socket creation failed" << std::endl;
+        cleanup();
+        return false;
+    }
+    if (!create()) {
+        std::cerr << "socket creation failed" << std::endl;
+        cleanup();
+        return false;
+    }
+
+    // Parse server IP address
+    uint32_t server_addr;
+    if (!net_parse_ipv4(address, &server_addr)) {
+        std::cerr << "Failed to parse server IP address" << std::endl;
+        cleanup();
+        return false;
+    }
+
+    // Connect to the server
+    if (!connect(server_addr, port)) {
+        std::cerr << "Connection to server failed" << std::endl;
+        cleanup();
+        return false;
+    }
+
+    std::cout << "Server connected!" << std::endl;
+    return true;
+}
