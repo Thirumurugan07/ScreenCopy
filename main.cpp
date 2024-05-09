@@ -12,33 +12,9 @@ using namespace std;
 
 int main() {
     ScSocket sockt;
-    if (!sockt.init()) {
-        std::cerr << "sockt creation failed" << std::endl;
-        sockt.cleanup();
-        exit(EXIT_FAILURE);
+    if (!sockt.start(SERVER_IP, SERVER_PORT)) {
+        LOGE("socket creation failed");
     }
-    if (!sockt.create()) {
-        std::cerr << "sockt creation failed" << std::endl;
-        sockt.cleanup();
-        exit(EXIT_FAILURE);
-    }
-
-    // Parse server IP address
-    uint32_t server_addr;
-    if (!sockt.net_parse_ipv4(SERVER_IP, &server_addr)) {
-        std::cerr << "Failed to parse server IP address" << std::endl;
-        sockt.cleanup();
-        exit(EXIT_FAILURE);
-    }
-
-    // Connect to the server
-    if (!sockt.connect(server_addr, SERVER_PORT)) {
-        std::cerr << "Connection to server failed" << std::endl;
-        sockt.cleanup();
-        exit(EXIT_FAILURE);
-    }
-
-    std::cout << "Server connected!" << std::endl;
 
     ScDemuxer demuxer;
     demuxer.init("my-demuxer");

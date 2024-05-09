@@ -28,6 +28,7 @@ public:
     //bool interrupt();
     bool close();
     bool net_parse_ipv4(const char* s, uint32_t* ipv4);
+    bool start(const char* address, int port);
     // Public function to get the socket variable
     SOCKET getSocket() const { return socket_; }
 };
