@@ -43,14 +43,15 @@ public:
     ScDemuxer();
     ~ScDemuxer() {}
 
-    void init(const char* name, ScSocket socket);
+    void init(const char* name);
     bool start();
     void join();
+    ScSocket socket;
+
 
 private:
     struct sc_packet_source packet_source;
     const char* name;
-    ScSocket socket;
     sc_thread thread;
 
     static enum AVCodecID to_avcodec_id(uint32_t codec_id);
