@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\HIZ1COB\scoop\apps\vcpkg\current\installed\x64-windows\include;C:\Raghuram\Project\ScreenSharing\ScreenCopy\additional-libraries;C:\Raghuram\Project\ScreenSharing\ScreenCopy\SDL2\include;C:\Raghuram\Project\ScreenSharing\ScreenCopy\SDL2\lib\x64;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>C:\Raghuram\Project\ScreenSharing\ScreenCopy\additional-libraries;C:\Raghuram\Project\ScreenSharing\ScreenCopy\SDL2\include;C:\Raghuram\Project\ScreenSharing\ScreenCopy\SDL2\lib\x64;$(ProjectDir);C:\opencv\build\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnableManifest>false</VcpkgEnableManifest>
@@ -119,8 +119,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\HIZ1COB\scoop\apps\vcpkg\current\installed\x64-windows\lib;C:\Raghuram\Project\ScreenSharing\ScreenCopy\SDL2-2.30.1\lib\x64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Ws2_32.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Raghuram\Project\ScreenSharing\ScreenCopy\SDL2\lib\x64;C:\opencv\build\x64\vc16\lib;C:\Raghuram\vcpkg\installed\x64-windows\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Ws2_32.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;opencv_world490d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -144,6 +144,7 @@
     <ClCompile Include="packet_source.cpp" />
     <ClCompile Include="streamer.cpp" />
     <ClCompile Include="tcp.cpp" />
+    <ClCompile Include="util\net.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.hpp" />

@@ -21,10 +21,13 @@
     <ClCompile Include="tcp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="streamer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="packet_source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="streamer.cpp">
+    <ClCompile Include="util\net.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,9 +68,6 @@
     <ClInclude Include="packet_sink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="packet_source.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="demuxer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -84,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="trait\frame_sink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="packet_source.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

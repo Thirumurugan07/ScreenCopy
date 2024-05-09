@@ -3,7 +3,7 @@
 
 #include "common.hpp"
 
-#include "packet_sink.h"
+#include "trait/packet_sink.h"
 
 
 #define SC_PACKET_SOURCE_MAX_SINKS 2
