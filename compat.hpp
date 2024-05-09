@@ -7,7 +7,7 @@
 #include "libavcodec/version.h"
 #include "libavformat/version.h"
 #include "libavutil/version.h"
-#include <SDL2/SDL_version.h>
+#include <SDL_version.h>
 
 #ifndef __WIN32
 # define PRIu64_ PRIu64

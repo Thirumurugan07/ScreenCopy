@@ -2,7 +2,7 @@
 #define THREAD_H
 
 #include <iostream>
-#include <SDL2/SDL_thread.h> 
+#include <SDL_thread.h> 
 #include "log.h"
 
 /* Typedef for thread function */
@@ -31,8 +31,7 @@ enum class sc_thread_priority {
     TIME_CRITICAL
 };
 
-bool sc_thread_create(sc_thread* thread, sc_thread_fn fn, const std::string& name,
-    void* userdata);
+bool sc_thread_create(sc_thread* thread, sc_thread_fn fn, const char* name, void* userdata);
 
 bool sc_thread_set_priority(sc_thread_priority priority);
 

@@ -12,7 +12,6 @@ typedef SSIZE_T ssize_t;
 class ScSocket {
 private:
     SOCKET socket_;
-
 public:
     ScSocket();
     ~ScSocket();
