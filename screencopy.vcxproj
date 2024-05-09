@@ -139,9 +139,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="comm.cpp" />
+    <ClCompile Include="decoder.cpp" />
     <ClCompile Include="demuxer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="packet_merger.cpp" />
+    <ClCompile Include="trait\frame_source.cpp" />
     <ClCompile Include="trait\packet_source.cpp" />
     <ClCompile Include="util\net.cpp" />
     <ClCompile Include="util\thread.cpp" />
@@ -151,10 +153,13 @@
     <ClInclude Include="common.hpp" />
     <ClInclude Include="compat.hpp" />
     <ClInclude Include="config.hpp" />
+    <ClInclude Include="decoder.hpp" />
     <ClInclude Include="demuxer.hpp" />
     <ClInclude Include="events.h" />
     <ClInclude Include="options.h" />
     <ClInclude Include="packet_merger.hpp" />
+    <ClInclude Include="trait\frame_sink.h" />
+    <ClInclude Include="trait\frame_source.h" />
     <ClInclude Include="trait\packet_sink.h" />
     <ClInclude Include="trait\packet_source.h" />
     <ClInclude Include="util\binary.h" />
