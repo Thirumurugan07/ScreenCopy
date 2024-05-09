@@ -205,10 +205,10 @@ int ScDemuxer::run(void* data) {
             // goto finally_free_context;
         }
 
-        if (!sc_packet_source_sinks_open(&demuxer->packet_source, codec_ctx)) {
-            LOGE("Unable to open packet source");
-            // goto finally_free_context;
-        }
+        //if (!sc_packet_source_sinks_open(&demuxer->packet_source, codec_ctx)) {
+        //    LOGE("Unable to open packet source");
+        //    // goto finally_free_context;
+        //}
 
         // Config packets must be merged with the next non-config packet only for
         // H.26x
@@ -272,12 +272,12 @@ int ScDemuxer::run(void* data) {
         return 0;
 }
 
-void ScDemuxer::init(const char* name, ScSocket socket) {
+void ScDemuxer::init(const char* name) {
     // assert(socket != SC_SOCKET_NONE);
 
     this->name = name;
-    this->socket = socket;
-    sc_packet_source_init(&packet_source);
+    //this->socket = socket;
+   // sc_packet_source_init(&packet_source);
 }
 
 bool ScDemuxer::start() {

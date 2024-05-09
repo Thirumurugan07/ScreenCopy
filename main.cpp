@@ -7,20 +7,46 @@
 #include "packet_merger.hpp"
 #include "util/binary.h"
 using namespace std;
-
+#define SERVER_IP "127.0.0.1"
+#define SERVER_PORT 1234
 
 int main() {
-    ScSocket socket;
-    startServerAndConnect(socket);
-    uint8_t data[4];
-    ssize_t r = socket.recv_all(data, 4);
-   
-    uint32_t codec_id = sc_read32be(data);
-    cout << codec_id << endl;
-   /* ScDemuxer demuxer;
-    demuxer.init("my-demuxer",socket);
+    ScSocket sockt;
+    if (!sockt.init()) {
+        std::cerr << "sockt creation failed" << std::endl;
+        sockt.cleanup();
+        exit(EXIT_FAILURE);
+    }
+    if (!sockt.create()) {
+        std::cerr << "sockt creation failed" << std::endl;
+        sockt.cleanup();
+        exit(EXIT_FAILURE);
+    }
+
+    // Parse server IP address
+    uint32_t server_addr;
+    if (!sockt.net_parse_ipv4(SERVER_IP, &server_addr)) {
+        std::cerr << "Failed to parse server IP address" << std::endl;
+        sockt.cleanup();
+        exit(EXIT_FAILURE);
+    }
+
+    // Connect to the server
+    if (!sockt.connect(server_addr, SERVER_PORT)) {
+        std::cerr << "Connection to server failed" << std::endl;
+        sockt.cleanup();
+        exit(EXIT_FAILURE);
+    }
+
+    std::cout << "Server connected!" << std::endl;
+
+    ScDemuxer demuxer;
+    demuxer.init("my-demuxer");
+    demuxer.socket = sockt;
     demuxer.start();
-    demuxer.join();*/
+    demuxer.join();
+    
+
 
     return 0;
 }
