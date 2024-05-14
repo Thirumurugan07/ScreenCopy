@@ -1,9 +1,6 @@
 #pragma once
-extern "C" {
+#include "frame_sink.hpp"
 
-
-#include "frame_sink.h"
-}
 #define SC_FRAME_SOURCE_MAX_SINKS 2
 
 /**
@@ -16,10 +13,6 @@ struct sc_frame_source {
     unsigned sink_count;
 };
 
-extern "C" {
-    struct AVCodecContext;
-    struct AVFrame;
-}
 void
 sc_frame_source_init(struct sc_frame_source* source);
 

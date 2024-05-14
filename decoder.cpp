@@ -1,16 +1,6 @@
 #include "decoder.hpp"
-extern "C" {
-#include <libavcodec/avcodec.h>
-#include <libavformat/avformat.h>
-#include <libavutil/channel_layout.h>
-#include <libavutil/imgutils.h>
-#include <libswscale/swscale.h>
-#include <libswscale/swscale.h>
-#include "events.h"
-#include "trait/frame_sink.h"
-#include "util/log.h"
 
-}
+
 
 ScDecoder::ScDecoder(const char* name) : name(name), ctx(nullptr), frame(nullptr) {}
 
@@ -27,10 +17,10 @@ sc_decoder_open(ScDecoder decoder, AVCodecContext* ctx) {
         return false;
     }
 
-    if (!sc_frame_source_sinks_open(&decoder.frame_source, ctx)) {
+   /* if (!sc_frame_source_sinks_open(&decoder.frame_source, ctx)) {
         av_frame_free(&decoder.frame);
         return false;
-    }
+    }*/
 
     decoder.ctx = ctx;
 
@@ -106,14 +96,14 @@ static bool sc_decoder_push(ScDecoder* decoder, const AVPacket* packet) {
    
 
         // Push the frame to the frame source
-        bool ok = sc_frame_source_sinks_push(&decoder->frame_source, bgr_frame);
+      //  bool ok = sc_frame_source_sinks_push(&decoder->frame_source, bgr_frame);
         av_frame_unref(decoder->frame);
         av_frame_free(&bgr_frame);
         av_free(bgr_buffer);
-        if (!ok) {
-            // Error already logged
-            return false;
-        }
+        //if (!ok) {
+        //    // Error already logged
+        //    return false;
+        //}
     }
 
     // Free the SwsContext
@@ -145,8 +135,8 @@ sc_decoder_packet_sink_push(struct sc_packet_sink* sink,
 }
 
 void ScDecoder::init() {
-    name = "my-decoder";
     sc_frame_source_init(&frame_source);
+    assert(&frame_source);
 
     static const struct sc_packet_sink_ops ops = {
         sc_decoder_packet_sink_open,   

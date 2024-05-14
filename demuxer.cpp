@@ -205,10 +205,10 @@ int ScDemuxer::run(void* data) {
             // goto finally_free_context;
         }
 
-        //if (!sc_packet_source_sinks_open(&demuxer->packet_source, codec_ctx)) {
-        //    LOGE("Unable to open packet source");
-        //    // goto finally_free_context;
-        //}
+        if (!sc_packet_source_sinks_open(&demuxer->packet_source, codec_ctx)) {
+            LOGE("Unable to open packet source");
+            // goto finally_free_context;
+        }
 
         // Config packets must be merged with the next non-config packet only for
         // H.26x
@@ -239,17 +239,20 @@ int ScDemuxer::run(void* data) {
 
             if (must_merge_config_packet) {
                 // Prepend any config packet to the next media packet
+
                 ok = merger.merge(packet); // Merge the packet using SCPacketMerger
                 if (!ok) {
+                    LOGE("packet merging error");
                     av_packet_unref(packet);
                     break;
                 }
             }
 
-           // ok = sc_packet_source_sinks_push(&demuxer->packet_source, packet);
+            ok = sc_packet_source_sinks_push(&demuxer->packet_source, packet);
             av_packet_unref(packet);
             if (!ok) {
                 // The sink already logged its concrete error
+                LOGE("packet pushing error");
                 break;
             }
         }
@@ -262,11 +265,11 @@ int ScDemuxer::run(void* data) {
 
         av_packet_free(&packet);
     finally_close_sinks:
-       // sc_packet_source_sinks_close(&demuxer->packet_source);
+        sc_packet_source_sinks_close(&demuxer->packet_source);
     finally_free_context:
-        // This also calls avcodec_close() internally
+       //  This also calls avcodec_close() internally
         avcodec_free_context(&codec_ctx);
-    end:
+   // end:
         //demuxer->cbs->on_ended(demuxer, status, demuxer->cbs_userdata);
 
         return 0;
@@ -277,7 +280,8 @@ void ScDemuxer::init(const char* name) {
 
     this->name = name;
     //this->socket = socket;
-   // sc_packet_source_init(&packet_source);
+    sc_packet_source_init(&packet_source);
+    assert(&packet_source);
 }
 
 bool ScDemuxer::start() {

@@ -8,8 +8,8 @@
 #include "common.hpp"
 #include "packet_merger.hpp"
 
-#include "trait/packet_source.h"
-#include "trait/packet_sink.h"
+#include "trait/packet_source.hpp"
+#include "trait/packet_sink.hpp"
 #include "util/thread.h"
 #include <windows.h> 
 
@@ -47,10 +47,10 @@ public:
     bool start();
     void join();
     ScSocket socket;
+    struct sc_packet_source packet_source;
 
 
 private:
-    struct sc_packet_source packet_source;
     const char* name;
     sc_thread thread;
 
