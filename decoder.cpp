@@ -26,7 +26,25 @@ sc_decoder_open(ScDecoder decoder, AVCodecContext* ctx) {
 
     return true;
 }
-
+//void save_frame_as_bin(const AVFrame* frame, const char* filename) {
+//    int width = frame->width;
+//    int height = frame->height;
+//    int channels = 3; // Assuming BGR format
+//    int step = channels * width;
+//
+//    // Open the file for writing
+//    FILE* file = fopen(filename, "wb");
+//    if (file == NULL) {
+//        printf("Error: Could not open file for writing.\n");
+//        return;
+//    }
+//    uint8_t* data = frame->data[0];
+//    for (int i = 0; i < height; i++) {
+//        fwrite(data + i * frame->linesize[0], sizeof(uint8_t), step, file);
+//    }
+//
+//    fclose(file);
+//}
 
 static void
 sc_decoder_close(ScDecoder decoder) {
@@ -58,7 +76,8 @@ static bool sc_decoder_push(ScDecoder* decoder, const AVPacket* packet) {
         LOGE("Failed to allocate SwsContext");
         // Handle the error appropriately, e.g., return false
     }
-
+    char filename[256];
+    int frame_count = 6;
     for (;;) {
         ret = avcodec_receive_frame(decoder->ctx, decoder->frame);
         if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) {
@@ -80,7 +99,7 @@ static bool sc_decoder_push(ScDecoder* decoder, const AVPacket* packet) {
             LOGE("Failed to allocate buffer for BGR image");
             // Handle the error appropriately, e.g., return false
         }
-
+        snprintf(filename, sizeof(filename), "C:\\Users\\HIZ1COB\\Developer\\images\\framey.bin");
         // Create AVFrame for BGR image
         AVFrame* bgr_frame = av_frame_alloc();
         if (!bgr_frame) {
@@ -93,7 +112,19 @@ static bool sc_decoder_push(ScDecoder* decoder, const AVPacket* packet) {
         sws_scale(swsctx, decoder->frame->data, decoder->frame->linesize, 0, decoder->frame->height,
             bgr_frame->data, bgr_frame->linesize);
 
-   
+        FILE *file;
+    errno_t err = fopen_s(&file, filename, "wb");
+    if (err != 0) {
+        LOGE("Error opening file: %s", filename);
+        av_frame_free(&bgr_frame);
+        av_free(bgr_buffer);
+        av_frame_unref(bgr_frame);
+        return false;
+    }
+
+    fwrite(bgr_frame->data[0], 1, bgr_size, file);
+    fclose(file);
+
 
         // Push the frame to the frame source
       //  bool ok = sc_frame_source_sinks_push(&decoder->frame_source, bgr_frame);
@@ -118,11 +149,16 @@ static bool sc_decoder_push(ScDecoder* decoder, const AVPacket* packet) {
 static bool
 sc_decoder_packet_sink_open(struct sc_packet_sink* sink, AVCodecContext* ctx) {
     ScDecoder* decoder = DOWNCAST(sink);
+    LOGI("receive video frame\n");
+
     return sc_decoder_open(*decoder, ctx);
+
 }
 
 static void
 sc_decoder_packet_sink_close(struct sc_packet_sink* sink) {
+    LOGI("receive video frame\n");
+
     ScDecoder* decoder = DOWNCAST(sink);
     sc_decoder_close(*decoder);
 }
@@ -130,6 +166,8 @@ sc_decoder_packet_sink_close(struct sc_packet_sink* sink) {
 static bool
 sc_decoder_packet_sink_push(struct sc_packet_sink* sink,
     const AVPacket* packet) {
+    LOGI("receive video frame\n");
+
     ScDecoder* decoder = DOWNCAST(sink);
     return sc_decoder_push(decoder, packet);
 }
@@ -137,11 +175,12 @@ sc_decoder_packet_sink_push(struct sc_packet_sink* sink,
 void ScDecoder::init() {
     sc_frame_source_init(&frame_source);
     assert(&frame_source);
-
+    printf("frame source created\n");
+   
     static const struct sc_packet_sink_ops ops = {
-        sc_decoder_packet_sink_open,   
-        sc_decoder_packet_sink_close,  
-        sc_decoder_packet_sink_push    
+  .open = sc_decoder_packet_sink_open,
+  .close = sc_decoder_packet_sink_close,
+  .push = sc_decoder_packet_sink_push,
     };
 
     packet_sink.ops = &ops;

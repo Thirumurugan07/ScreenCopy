@@ -27,8 +27,8 @@ int main() {
     
     decoder.init();
     sc_packet_source_add_sink(&demuxer.packet_source,&decoder.packet_sink);
-     sc_frame_source_add_sink(&decoder.frame_source, &stream.frame_sink);
-     stream.init();
+    // sc_frame_source_add_sink(&decoder.frame_source, &stream.frame_sink);
+    // stream.init();
 
     demuxer.start();
     
