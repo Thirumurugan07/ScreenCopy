@@ -72,6 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\Users\HIZ1COB\Downloads\ffmpeg-6.1.1-full_build-shared\include;C:\Users\HIZ1COB\Documents\SDL2-2.30.1\include;$(ProjectDir);C:\Users\HIZ1COB\Downloads\opencv\build\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\HIZ1COB\Downloads\opencv\build\x64\vc16\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnableManifest>false</VcpkgEnableManifest>
@@ -117,8 +118,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\HIZ1COB\Documents\SDL2-2.30.1\lib\x64;C:\Users\HIZ1COB\Downloads\ffmpeg-6.1.1-full_build-shared\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Ws2_32.lib;SDL2.lib;swscale.lib;avcodec.lib;avformat.lib;avutil.lib;avdevice.lib;avfilter.lib;postproc.lib;swresample.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\HIZ1COB\Documents\SDL2-2.30.1\lib\x64;C:\Users\HIZ1COB\Downloads\ffmpeg-6.1.1-full_build-shared\lib;C:\Users\HIZ1COB\Downloads\opencv\build\x64\vc16\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Ws2_32.lib;SDL2.lib;swscale.lib;avcodec.lib;avformat.lib;avutil.lib;avdevice.lib;avfilter.lib;postproc.lib;swresample.lib;opencv_world490.lib;opencv_world490d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

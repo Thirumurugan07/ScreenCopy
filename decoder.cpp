@@ -17,10 +17,10 @@ sc_decoder_open(ScDecoder decoder, AVCodecContext* ctx) {
         return false;
     }
 
-   /* if (!sc_frame_source_sinks_open(&decoder.frame_source, ctx)) {
+    if (!sc_frame_source_sinks_open(&decoder.frame_source, ctx)) {
         av_frame_free(&decoder.frame);
         return false;
-    }*/
+    }
 
     decoder.ctx = ctx;
 

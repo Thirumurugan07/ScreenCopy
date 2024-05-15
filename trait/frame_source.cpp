@@ -1,5 +1,5 @@
 #pragma once
-#include "frame_source.h"
+#include "frame_source.hpp"
 
 void
 sc_frame_source_init(struct sc_frame_source* source) {

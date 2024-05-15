@@ -1,66 +1,66 @@
+#pragma once
 #include "streamer.hpp"
+
 #include "util/log.h"
-#include "trait/frame_sink.hpp"
-#include "trait/frame_source.hpp"
+
 #define DOWNCAST(SINK) container_of(SINK, ScStream, frame_sink)
 
+const struct sc_frame_sink_ops ScStream::frame_sink_ops = {
+    ScStream::frame_sink_open,
+    ScStream::frame_sink_close,
+    ScStream::frame_sink_push
+};
 
-static bool
-sc_stream_open(ScStream stream, AVCodecContext* ctx) {
-    stream.av_frame = av_frame_alloc();
-    if (!stream.av_frame) {
-        LOG_OOM();
-        return false;
+ScStream::ScStream() : av_frame(nullptr), codec_ctx(nullptr) {
+    frame_sink.ops = &frame_sink_ops;
+}
+
+ScStream::~ScStream() {
+    if (av_frame) {
+        av_frame_free(&av_frame);
     }
-
-    /* if (!sc_frame_source_sinks_open(&stream.frame_source, ctx)) {
-         av_frame_free(&stream.frame);
-         return false;
-     }*/
-
-    // stream.ctx = ctx;
-
-    return true;
-}
-
-
-static void
-sc_stream_close(ScStream stream) {
-   // sc_frame_source_sinks_close(&stream.frame_source);
-    av_frame_free(&stream.av_frame);
-}
-
-
-static bool
-sc_stream_frame_sink_open(struct sc_frame_sink* sink, AVCodecContext* ctx) {
-    ScStream* stream = DOWNCAST(sink);
-    return sc_stream_open(*stream, ctx);
-}
-
-static void
-sc_stream_frame_sink_close(struct sc_frame_sink* sink) {
-    ScStream* stream = DOWNCAST(sink);
-    sc_stream_close(*stream);
-}
-
-static bool
-sc_stream_frame_sink_push(struct sc_frame_sink* sink,
-    const AVFrame* frame) {
-    ScStream* stream = DOWNCAST(sink);
-    return sc_stream_push(stream, frame);
+    if (codec_ctx) {
+        avcodec_free_context(&codec_ctx);
+    }
 }
 
 void ScStream::init() {
-    // Initialize the frame sink
     av_frame = av_frame_alloc();
     if (!av_frame) {
         LOG_OOM();
     }
-    static const struct sc_frame_sink_ops ops = {
-    sc_stream_frame_sink_open,
-    sc_stream_frame_sink_close,
-    sc_stream_frame_sink_push,
-    };
+}
 
-    frame_sink.ops = &ops;
+bool ScStream::frame_sink_open(struct sc_frame_sink* sink, const AVCodecContext* ctx) {
+    ScStream* stream = DOWNCAST(sink);
+    stream->codec_ctx = const_cast<AVCodecContext*>(ctx);
+    return true;
+}
+
+void ScStream::frame_sink_close(struct sc_frame_sink* sink) {
+    ScStream* stream = DOWNCAST(sink);
+    // Clean up if needed
+}
+
+bool ScStream::frame_sink_push(struct sc_frame_sink* sink, const AVFrame* frame) {
+    ScStream* stream = DOWNCAST(sink);
+    stream->cv_frame = cv::Mat(frame->height, frame->width, CV_8UC3);
+
+    struct SwsContext* sws_ctx = sws_getContext(
+        frame->width, frame->height, (AVPixelFormat)frame->format,
+        frame->width, frame->height, AV_PIX_FMT_BGR24,
+        SWS_BILINEAR, NULL, NULL, NULL
+    );
+
+    uint8_t* dst_data[4] = { stream->cv_frame.data };
+    int dst_linesize[4] = { stream->cv_frame.step1() };
+
+    sws_scale(sws_ctx, frame->data, frame->linesize, 0, frame->height, dst_data, dst_linesize);
+    sws_freeContext(sws_ctx);
+
+    // Display the frame using OpenCV
+    cv::imshow("Frame", stream->cv_frame);
+    cv::waitKey(1);
+
+    return true;
 }

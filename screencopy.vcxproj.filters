@@ -18,9 +18,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="comm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="packet_merger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -34,6 +31,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="demuxer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="decoder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="streamer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="trait\frame_source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,16 +74,28 @@
     <ClInclude Include="util\thread.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="trait\packet_sink.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="trait\packet_source.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="demuxer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="events.h">
+    <ClInclude Include="decoder.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="events.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="streamer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="trait\frame_sink.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="trait\frame_source.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="trait\packet_sink.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="trait\packet_source.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
